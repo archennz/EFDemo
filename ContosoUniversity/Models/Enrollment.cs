@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ContosoUniversity.Model;
+namespace ContosoUniversity.Models;
 
 public class Enrollment
 {

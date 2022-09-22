@@ -1,4 +1,4 @@
-namespace ContosoUniversity.Model;
+namespace ContosoUniversity.Models;
 
 public class Student
 {
