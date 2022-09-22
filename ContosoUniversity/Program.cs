@@ -1,10 +1,10 @@
+using Microsoft.EntityFrameworkCore;
+using ContosoUniversity.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
-
-// builder.Services.AddDbContext<SchoolContext>(options =>
-//     options.UseSqlite(builder.Configuration.GetConnectionString("SchoolContextSQLite")));
-
+builder.Services.AddDbContext<SchoolContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SchoolContext") ?? throw new InvalidOperationException("Connection string 'SchoolContext' not found.")));
 
 // builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -22,14 +22,14 @@ else
 }
 
 
-// using (var scope = app.Services.CreateScope())
-// {
-//     var services = scope.ServiceProvider;
-//
-//     var context = services.GetRequiredService<SchoolContext>();
-//     context.Database.EnsureCreated();
-//     DbInitializer.Initialize(context);
-// }
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    var context = services.GetRequiredService<SchoolContext>();
+    context.Database.EnsureCreated();
+    // DbInitializer.Initialize(context);
+}
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
