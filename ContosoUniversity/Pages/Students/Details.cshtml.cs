@@ -19,7 +19,7 @@ namespace ContosoUniversity.Pages.Students
             _context = context;
         }
 
-      public Student Student { get; set; } = default!; 
+        public Student Student { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,14 +29,17 @@ namespace ContosoUniversity.Pages.Students
             }
 
             var student = await _context.Students.FirstOrDefaultAsync(m => m.ID == id);
+            // var student = await _context.Students.Include(s => s.Enrollments).ThenInclude(e => e.Course).AsNoTracking()
+            //     .FirstOrDefaultAsync(m => m.ID == id);
             if (student == null)
             {
                 return NotFound();
             }
-            else 
+            else
             {
                 Student = student;
             }
+
             return Page();
         }
     }
